@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 from babel.numbers import format_currency
+import os
 sns.set(style='dark')
 
 # HELPER FUNCTIONS
@@ -55,7 +56,10 @@ def create_rfm_df(df):
     return rfm_df
 
 # LOAD DATA
-all_df = pd.read_csv("main_data.csv")
+if os.path.exists("main_data.csv"):
+    all_df = pd.read_csv("main_data.csv")
+else:
+    all_df = pd.read_csv("dashboard/main_data.csv")
 
 # convert datetime
 all_df["order_purchase_timestamp"] = pd.to_datetime(all_df["order_purchase_timestamp"])
